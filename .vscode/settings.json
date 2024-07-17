@@ -16,5 +16,13 @@
             "command": "extension.execute",
             "priority": 4
         }
-    ]
+    ],
+    "files.associations": {
+        "rtthread.h": "c",
+        "user_sys.h": "c",
+        "bsp_led.h": "c",
+        "flexible_button.h": "c",
+        "bsp_lcd_1621.h": "c",
+        "drv_gpio.h": "c"
+    }
 }

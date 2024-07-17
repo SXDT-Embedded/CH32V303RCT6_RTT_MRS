@@ -803,6 +803,43 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./bsp/src/bsp_hr.o
  .data          0x0000000000000000        0x0 ./bsp/src/bsp_hr.o
  .bss           0x0000000000000000        0x0 ./bsp/src/bsp_hr.o
+ .text          0x0000000000000000        0x0 ./bsp/src/bsp_lcd_1621.o
+ .data          0x0000000000000000        0x0 ./bsp/src/bsp_lcd_1621.o
+ .bss           0x0000000000000000        0x0 ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_WriteBit
+                0x0000000000000000       0x74 ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_WriteCmd
+                0x0000000000000000       0x5c ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_Refresh
+                0x0000000000000000       0x7e ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_Clear
+                0x0000000000000000       0x2c ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_ShowSegment
+                0x0000000000000000       0xa8 ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_ShowIcon
+                0x0000000000000000       0x92 ./bsp/src/bsp_lcd_1621.o
+ .rodata.LCD_ShowIcon
+                0x0000000000000000       0x50 ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_Init
+                0x0000000000000000       0xbc ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_ShowNum
+                0x0000000000000000      0x290 ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_ShowPressure
+                0x0000000000000000       0xce ./bsp/src/bsp_lcd_1621.o
+ .text.LCD_ShowTime
+                0x0000000000000000       0x4e ./bsp/src/bsp_lcd_1621.o
+ .bss.lcd_buffer
+                0x0000000000000000        0xe ./bsp/src/bsp_lcd_1621.o
+ .debug_info    0x0000000000000000      0xed2 ./bsp/src/bsp_lcd_1621.o
+ .debug_abbrev  0x0000000000000000      0x2a9 ./bsp/src/bsp_lcd_1621.o
+ .debug_loc     0x0000000000000000      0x874 ./bsp/src/bsp_lcd_1621.o
+ .debug_aranges
+                0x0000000000000000       0x68 ./bsp/src/bsp_lcd_1621.o
+ .debug_ranges  0x0000000000000000       0xc8 ./bsp/src/bsp_lcd_1621.o
+ .debug_line    0x0000000000000000      0xd80 ./bsp/src/bsp_lcd_1621.o
+ .debug_str     0x0000000000000000      0x57e ./bsp/src/bsp_lcd_1621.o
+ .comment       0x0000000000000000       0x34 ./bsp/src/bsp_lcd_1621.o
+ .debug_frame   0x0000000000000000      0x168 ./bsp/src/bsp_lcd_1621.o
  .text          0x0000000000000000        0x0 ./bsp/src/bsp_led.o
  .data          0x0000000000000000        0x0 ./bsp/src/bsp_led.o
  .bss           0x0000000000000000        0x0 ./bsp/src/bsp_led.o
@@ -2596,6 +2633,7 @@ LOAD ./common/AT-Command-master/src/ringbuffer.o
 LOAD ./bsp/src/bsp_button.o
 LOAD ./bsp/src/bsp_flash.o
 LOAD ./bsp/src/bsp_hr.o
+LOAD ./bsp/src/bsp_lcd_1621.o
 LOAD ./bsp/src/bsp_led.o
 LOAD ./bsp/src/bsp_rtc.o
 LOAD ./bsp/src/bsp_sensor.o

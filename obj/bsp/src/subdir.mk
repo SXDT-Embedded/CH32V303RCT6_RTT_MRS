@@ -8,6 +8,7 @@ C_SRCS += \
 ../bsp/src/bsp_button.c \
 ../bsp/src/bsp_flash.c \
 ../bsp/src/bsp_hr.c \
+../bsp/src/bsp_lcd_1621.c \
 ../bsp/src/bsp_led.c \
 ../bsp/src/bsp_rtc.c \
 ../bsp/src/bsp_sensor.c \
@@ -19,6 +20,7 @@ OBJS += \
 ./bsp/src/bsp_button.o \
 ./bsp/src/bsp_flash.o \
 ./bsp/src/bsp_hr.o \
+./bsp/src/bsp_lcd_1621.o \
 ./bsp/src/bsp_led.o \
 ./bsp/src/bsp_rtc.o \
 ./bsp/src/bsp_sensor.o \
@@ -30,6 +32,7 @@ C_DEPS += \
 ./bsp/src/bsp_button.d \
 ./bsp/src/bsp_flash.d \
 ./bsp/src/bsp_hr.d \
+./bsp/src/bsp_lcd_1621.d \
 ./bsp/src/bsp_led.d \
 ./bsp/src/bsp_rtc.d \
 ./bsp/src/bsp_sensor.d \
