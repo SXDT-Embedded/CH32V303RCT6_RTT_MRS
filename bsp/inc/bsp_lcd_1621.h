@@ -2,7 +2,7 @@
  * @Author       : stark1898y 1658608470@qq.com
  * @Date         : 2024-07-17 09:54:43
  * @LastEditors  : stark1898y 1658608470@qq.com
- * @LastEditTime : 2024-07-17 16:30:40
+ * @LastEditTime : 2024-07-17 16:45:17
  * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\bsp\inc\bsp_lcd_1621.h
  * @Description  :
  *
@@ -17,10 +17,10 @@
 
 // 参考：https://blog.csdn.net/wyf9003/article/details/121791860
 // 一般情况下，为了节约引脚，可以省掉读时钟
-#define LCD_CS_PIN          23	    // CS为片选，拉低为使能
-#define LCD_DATA_PIN        19	    // 传输的数据
-#define LCD_RD_PIN          22		  // 读时钟
-#define LCD_WR_PIN          21		  // 写时钟
+#define LCD_CS_PIN          GET_PIN(A, 6)	    // CS为片选，拉低为使能
+#define LCD_DATA_PIN        GET_PIN(C, 5)	    // 传输的数据
+#define LCD_RD_PIN          GET_PIN(A, 7)		  // 读时钟
+#define LCD_WR_PIN          GET_PIN(C, 4)		  // 写时钟
 
 #define LCD_BUFFER_LEN  (14U)          // 14个SEG
 
@@ -72,168 +72,83 @@
 
 typedef enum
 {
-  LCD_SEG0 = 0,
-  LCD_SEG1,
-  LCD_SEG2,
-  LCD_SEG3,
-  LCD_SEG4,
-  LCD_SEG5,
-  LCD_SEG6,
-  LCD_SEG7,
-  LCD_SEG8,
-  LCD_SEG9,
-  LCD_SEG10,
-  LCD_SEG11,
-  LCD_SEG12,
-  LCD_SEG13
-} LcdSeg;
+  kLcdSeg0 = 0U,
+  kLcdSeg1,
+  kLcdSeg2,
+  kLcdSeg3,
+  kLcdSeg4,
+  kLcdSeg5,
+  kLcdSeg6,
+  kLcdSeg7,
+  kLcdSeg8,
+  kLcdSeg9,
+  kLcdSeg10,
+  kLcdSeg11,
+  kLcdSeg12,
+  kLcdSeg13
+} TeLcdSeg;
 
 typedef enum
 {
-  LCD_COM1 = 1,
-  LCD_COM2,
-  LCD_COM3,
-  LCD_COM4
-} LcdCom;
+  kLcdCom1 = 1U,
+  kLcdCom2,
+  kLcdCom3,
+  kLcdCom4
+} TeLcdCom;
 
 // 图标
 typedef enum {
-  S1_OVER_PRESSURE = 0,       //  超压
-  S2_UNDER_PRESSURE,          //  欠压
-  S3_OVER_CURRENT,            //  过流
-  S4_LEAKAGE,                 //  泄露
-  S5_PRESSURE_TIMING_VALVES,  //  压力、定时、自闭阀、手阀
-  S6_NETWORK,                 //  联网
-  S7_LEAK_HUNTING,            //  检漏
-  S8_FAULT,                   //  故障
-  S9_ALARM,                   //  报警
+  kS1OverPress = 0U,       //  超压
+  kS2UnderPress,          //  欠压
+  kS3OverCurrent,            //  过流
+  kS4Leakage,                 //  泄露
+  kS5PressTimingValves,  //  压力、定时、自闭阀、手阀
+  kS6Network,                 //  联网
+  kS7LeakHunting,            //  检漏
+  kS8FFault,                   //  故障
+  kS9Alarm,                   //  报警
 
-  L1_LINE,                    //  下划线1
-  L2_LINE,                    //  下划线2
-  L3_LINE,                    //  下划线3
-  L4_LINE,                    //  下划线4
+  kL1Line,                    //  下划线1
+  kL2Line,                    //  下划线2
+  kL3Line,                    //  下划线3
+  kL4Line,                    //  下划线4
 
-  K1_SELF_CLOSING_VALVE_ON,   //  自闭阀开
-  K2_SELF_CLOSING_VALVE_OFF,  //  自闭阀关
-  K3_HAND_VALVE_ON,           //  手阀开
-  K4_HAND_VALVE_OFF,          //  手阀关
+  kK1SelfCloseingValveOn,   //  自闭阀开
+  kK2SelfCloseingValveOff,  //  自闭阀关
+  kK3HandValveOn,           //  手阀开
+  kK4HandValveOff,          //  手阀关
 
-  ICON_POINT,               //  小数点
-  ICON_KPA,                 //  kPa单位
-  ICON_MIN                  //  min单位
-} LcdIconIndex;
+  kIconPoint,               //  小数点
+  kIconKpa,                 //  kPa单位
+  kIconMin                  //  min单位
+} TeLcdIconIndex;
 
 typedef enum
 {
-  KPA_NUM_1 = LCD_SEG1,     //  kpa的十位,A的SEG为基准
-  KPA_NUM_2 = LCD_SEG3,     //  kpa的个位
-  KPA_NUM_3 = LCD_SEG5,     //  kpa的小数点后1位
+  kKpaNum1 = kLcdSeg1,     //  kpa的十位,A的SEG为基准
+  kKpaNum2 = kLcdSeg3,     //  kpa的个位
+  kKpaNum3 = kLcdSeg5,     //  kpa的小数点后1位
 
-  MIN_NUM_1 = LCD_SEG9,     //  min的十位
-  MIN_NUM_2 = LCD_SEG11    //  min的个位
-} LcdNumIndex;
+  kMinNum1 = kLcdSeg9,     //  min的十位
+  kMinNum2 = kLcdSeg11    //  min的个位
+} TeLcdNumIndex;
 
 typedef enum {
   kShowClose = 0U,
   kShowOpen
-} LcdSegmentShowControl;
+} TeLcdSegmentShowControl;
 
-/**
- * @description: GN1621初始化
- * @param {*}
- * @return {*}
- */
+
 void LCD_Init(void);
-
-/**
- * @description: 屏幕刷新
- * @param {*}
- * @return {*}
- */
 void LCD_Refresh(void);
-
-/**
- * @description: 清屏
- * @param {*}
- * @return {*}
- */
 void LCD_Clear(void);
 
-/**
- * @description:
- * @param {LcdSeg} seg     0-13(LCD_BUFFER_LEN-1)
- * @param {LcdCom} com      1-4
- * @param {LcdSegmentShowControl} mode    kShowClose：熄灭；kShowOpen:点亮
- * @return {*}
- */
-void LCD_ShowSegment(LcdSeg seg, LcdCom com, LcdSegmentShowControl mode);
+void LCD_ShowSegment(TeLcdSeg seg, TeLcdCom com, TeLcdSegmentShowControl mode);
+void LCD_ShowIcon(TeLcdIconIndex index, TeLcdSegmentShowControl mode);
+void LCD_ShowNum(TeLcdNumIndex index, uint8_t num, TeLcdSegmentShowControl mode);
 
-/**
- * @description: 显示图标
- * @param {LcdIconIndex} index
- * @param {LcdSegmentShowControl} mode  kShowClose：熄灭；kShowOpen:点亮
- * @return {*}
- */
-void LCD_ShowIcon(LcdIconIndex index, LcdSegmentShowControl mode);
-
-/**
- * @description: LCD显示数字
- * @param {LcdNumIndex} index
- * @param {uint8_t} num (0-9)
- * @param {LcdSegmentShowControl} mode
- * @return {*}
- */
-void LCD_ShowNum(LcdNumIndex index, uint8_t num, LcdSegmentShowControl mode);
-
-/**
- * @description: LCD显示压力数值
- * @param {uint32_t} pressure  (0-99999)
- * @param {LcdSegmentShowControl} mode
- * @return {*}
- */
-void LCD_ShowPressure(uint32_t pressure, LcdSegmentShowControl mode);
-
-/**
- * @description: LCD显示定时时间
- * @param {uint8_t} time  (0-99)
- * @param {LcdSegmentShowControl} mode
- * @return {*}
- */
-void LCD_ShowTime(uint8_t time, LcdSegmentShowControl mode);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void LCD_ShowPressure(uint32_t pressure, TeLcdSegmentShowControl mode);
+void LCD_ShowTime(uint8_t time, TeLcdSegmentShowControl mode);
 
 
 #endif  //__BSP_LCD_1621_H__

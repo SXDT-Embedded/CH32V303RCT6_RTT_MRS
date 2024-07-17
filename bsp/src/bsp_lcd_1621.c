@@ -98,7 +98,7 @@ void LCD_Init(void)
   // LCD_WriteCmd(TONE_4K);
   LCD_Clear();
   rt_thread_mdelay(1);
-  LCD_ShowIcon(S5_PRESSURE_TIMING_VALVES, kShowOpen);
+  LCD_ShowIcon(kS5PressTimingValves, kShowOpen);
   LCD_Refresh();
 }
 
@@ -129,30 +129,30 @@ void LCD_Clear(void)
 
 /**
  * @description:
- * @param {LcdSeg} seg     0-13(LCD_BUFFER_LEN-1)
- * @param {LcdCom} com      1-4
- * @param {LcdSegmentShowControl} mode    kShowClose：熄灭；kShowOpen:点亮
+ * @param {TeLcdSeg} seg     0-13(LCD_BUFFER_LEN-1)
+ * @param {TeLcdCom} com      1-4
+ * @param {TeLcdSegmentShowControl} mode    kShowClose：熄灭；kShowOpen:点亮
  * @return {*}
  */
-void LCD_ShowSegment(LcdSeg seg, LcdCom com, LcdSegmentShowControl mode)
+void LCD_ShowSegment(TeLcdSeg seg, TeLcdCom com, TeLcdSegmentShowControl mode)
 {
   // 关闭
   // LCD_WriteBit(com_4bit<<4, 4); //写入数据  这里是对应单个SEG写的 故而为4
   if(mode == kShowClose)
   {
-    if(com == LCD_COM1)
+    if(com == kLcdCom1)
     {
       lcd_buffer[seg] &= B8(11110111);    //  1111 0111
     }
-    else if(com == LCD_COM2)
+    else if(com == kLcdCom2)
     {
       lcd_buffer[seg] &= B8(11111011);    //  1111 1011
     }
-    else if(com == LCD_COM3)
+    else if(com == kLcdCom3)
     {
       lcd_buffer[seg] &= B8(11111101);    //  1111 1101
     }
-    else if(com == LCD_COM4)
+    else if(com == kLcdCom4)
     {
       lcd_buffer[seg] &= B8(11111110);    //  1111 1110
     }
@@ -160,19 +160,19 @@ void LCD_ShowSegment(LcdSeg seg, LcdCom com, LcdSegmentShowControl mode)
   // 开启
   else if(mode == kShowOpen)
   {
-    if(com == LCD_COM1)
+    if(com == kLcdCom1)
     {
       lcd_buffer[seg] |= B8(00001000);    //  0000 1000
     }
-    else if(com == LCD_COM2)
+    else if(com == kLcdCom2)
     {
       lcd_buffer[seg] |= B8(00000100);    //  0000 0100
     }
-    else if(com == LCD_COM3)
+    else if(com == kLcdCom3)
     {
       lcd_buffer[seg] |= B8(00000010);    //  0000 0010
     }
-    else if(com == LCD_COM4)
+    else if(com == kLcdCom4)
     {
       lcd_buffer[seg] |= B8(00000001);    //  0000 0001
     }
@@ -181,76 +181,76 @@ void LCD_ShowSegment(LcdSeg seg, LcdCom com, LcdSegmentShowControl mode)
 
 /**
  * @description: 显示图标
- * @param {LcdIconIndex} index
- * @param {LcdSegmentShowControl} mode  kShowClose：熄灭；kShowOpen:点亮
+ * @param {TeLcdIconIndex} index
+ * @param {TeLcdSegmentShowControl} mode  kShowClose：熄灭；kShowOpen:点亮
  * @return {*}
  */
-void LCD_ShowIcon(LcdIconIndex index, LcdSegmentShowControl mode)
+void LCD_ShowIcon(TeLcdIconIndex index, TeLcdSegmentShowControl mode)
 {
   switch (index)
   {
-    case S1_OVER_PRESSURE:
-      LCD_ShowSegment(LCD_SEG0, LCD_COM4, mode);
+    case kS1OverPress:
+      LCD_ShowSegment(kLcdSeg0, kLcdCom4, mode);
       break;
-    case S2_UNDER_PRESSURE:
-      LCD_ShowSegment(LCD_SEG0, LCD_COM3, mode);
+    case kS2UnderPress:
+      LCD_ShowSegment(kLcdSeg0, kLcdCom3, mode);
       break;
-    case S3_OVER_CURRENT:
-      LCD_ShowSegment(LCD_SEG0, LCD_COM2, mode);
+    case kS3OverCurrent:
+      LCD_ShowSegment(kLcdSeg0, kLcdCom2, mode);
       break;
-    case S4_LEAKAGE:
-      LCD_ShowSegment(LCD_SEG0, LCD_COM1, mode);
+    case kS4Leakage:
+      LCD_ShowSegment(kLcdSeg0, kLcdCom1, mode);
       break;
-    case S5_PRESSURE_TIMING_VALVES:
-      LCD_ShowSegment(LCD_SEG2, LCD_COM1, mode);
+    case kS5PressTimingValves:
+      LCD_ShowSegment(kLcdSeg2, kLcdCom1, mode);
       break;
-    case S6_NETWORK:
-      LCD_ShowSegment(LCD_SEG7, LCD_COM3, mode);
+    case kS6Network:
+      LCD_ShowSegment(kLcdSeg7, kLcdCom3, mode);
       break;
-    case S7_LEAK_HUNTING:
-      LCD_ShowSegment(LCD_SEG7, LCD_COM2, mode);
+    case kS7LeakHunting:
+      LCD_ShowSegment(kLcdSeg7, kLcdCom2, mode);
       break;
-    case S8_FAULT:
-      LCD_ShowSegment(LCD_SEG8, LCD_COM4, mode);
+    case kS8FFault:
+      LCD_ShowSegment(kLcdSeg8, kLcdCom4, mode);
       break;
-    case S9_ALARM:
-      LCD_ShowSegment(LCD_SEG13, LCD_COM4, mode);
-      break;
-
-    case L1_LINE:
-      LCD_ShowSegment(LCD_SEG6, LCD_COM1, mode);
-      break;
-    case L2_LINE:
-      LCD_ShowSegment(LCD_SEG10, LCD_COM1, mode);
-      break;
-    case L3_LINE:
-      LCD_ShowSegment(LCD_SEG8, LCD_COM1, mode);
-      break;
-    case L4_LINE:
-      LCD_ShowSegment(LCD_SEG13, LCD_COM1, mode);
+    case kS9Alarm:
+      LCD_ShowSegment(kLcdSeg13, kLcdCom4, mode);
       break;
 
-    case K1_SELF_CLOSING_VALVE_ON:
-      LCD_ShowSegment(LCD_SEG8, LCD_COM2, mode);
+    case kL1Line:
+      LCD_ShowSegment(kLcdSeg6, kLcdCom1, mode);
       break;
-    case K2_SELF_CLOSING_VALVE_OFF:
-      LCD_ShowSegment(LCD_SEG8, LCD_COM3, mode);
+    case kL2Line:
+      LCD_ShowSegment(kLcdSeg10, kLcdCom1, mode);
       break;
-    case K3_HAND_VALVE_ON:
-      LCD_ShowSegment(LCD_SEG13, LCD_COM2, mode);
+    case kL3Line:
+      LCD_ShowSegment(kLcdSeg8, kLcdCom1, mode);
       break;
-    case K4_HAND_VALVE_OFF:
-      LCD_ShowSegment(LCD_SEG13, LCD_COM3, mode);
+    case kL4Line:
+      LCD_ShowSegment(kLcdSeg13, kLcdCom1, mode);
       break;
 
-    case ICON_POINT:
-      LCD_ShowSegment(LCD_SEG4, LCD_COM1, mode);
+    case kK1SelfCloseingValveOn:
+      LCD_ShowSegment(kLcdSeg8, kLcdCom2, mode);
       break;
-    case ICON_KPA:
-      LCD_ShowSegment(LCD_SEG7, LCD_COM4, mode);
+    case kK2SelfCloseingValveOff:
+      LCD_ShowSegment(kLcdSeg8, kLcdCom3, mode);
       break;
-    case ICON_MIN:
-      LCD_ShowSegment(LCD_SEG12, LCD_COM1, mode);
+    case kK3HandValveOn:
+      LCD_ShowSegment(kLcdSeg13, kLcdCom2, mode);
+      break;
+    case kK4HandValveOff:
+      LCD_ShowSegment(kLcdSeg13, kLcdCom3, mode);
+      break;
+
+    case kIconPoint:
+      LCD_ShowSegment(kLcdSeg4, kLcdCom1, mode);
+      break;
+    case kIconKpa:
+      LCD_ShowSegment(kLcdSeg7, kLcdCom4, mode);
+      break;
+    case kIconMin:
+      LCD_ShowSegment(kLcdSeg12, kLcdCom1, mode);
       break;
 
     default:
@@ -260,144 +260,144 @@ void LCD_ShowIcon(LcdIconIndex index, LcdSegmentShowControl mode)
 
 /**
  * @description: LCD显示数字
- * @param {LcdNumIndex} index
+ * @param {TeLcdNumIndex} index
  * @param {uint8_t} num (0-9)
- * @param {LcdSegmentShowControl} mode
+ * @param {TeLcdSegmentShowControl} mode
  * @return {*}
  */
-void LCD_ShowNum(LcdNumIndex index, uint8_t num, LcdSegmentShowControl mode)
+void LCD_ShowNum(TeLcdNumIndex index, uint8_t num, TeLcdSegmentShowControl mode)
 {
   if(mode == kShowOpen)
   {
     if(num == 0)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowOpen);      // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowOpen);      // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowOpen);      // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowClose);     // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowOpen);      // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowOpen);      // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowOpen);      // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowClose);     // G
     }
     else if(num == 1)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowClose);       // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowClose);       // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowClose);       // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowClose);       // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowClose);     // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowClose);       // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowClose);       // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowClose);       // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowClose);       // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowClose);     // G
     }
     else if(num == 2)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowClose);     // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowOpen);      // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowOpen);      // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowClose);       // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowOpen);    // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowClose);     // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowOpen);      // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowOpen);      // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowClose);       // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowOpen);    // G
     }
     else if(num == 3)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowOpen);      // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowClose);       // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowClose);       // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowOpen);    // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowOpen);      // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowClose);       // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowClose);       // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowOpen);    // G
     }
     else if(num == 4)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowClose);       // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowClose);       // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowClose);       // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowOpen);      // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowOpen);    // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowClose);       // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowClose);       // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowClose);       // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowOpen);      // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowOpen);    // G
     }
     else if(num == 5)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowClose);     // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowOpen);      // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowClose);       // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowOpen);      // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowOpen);    // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowClose);     // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowOpen);      // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowClose);       // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowOpen);      // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowOpen);    // G
     }
     else if(num == 6)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowClose);     // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowOpen);      // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowOpen);      // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowOpen);      // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowOpen);    // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowClose);     // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowOpen);      // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowOpen);      // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowOpen);      // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowOpen);    // G
     }
     else if(num == 7)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowClose);       // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowClose);       // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowClose);       // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowClose);     // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowClose);       // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowClose);       // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowClose);       // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowClose);     // G
     }
     else if(num == 8)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowOpen);      // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowOpen);      // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowOpen);      // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowOpen);    // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowOpen);      // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowOpen);      // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowOpen);      // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowOpen);    // G
     }
     else if(num == 9)
     {
-      LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowOpen);      // A
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowOpen);    // B
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowOpen);    // C
-      LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowOpen);      // D
-      LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowClose);       // E
-      LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowOpen);      // F
-      LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowOpen);    // G
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowOpen);      // A
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowOpen);    // B
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowOpen);    // C
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowOpen);      // D
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowClose);       // E
+      LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowOpen);      // F
+      LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowOpen);    // G
     }
   }
   else if(mode == kShowClose)
   {
-    LCD_ShowSegment((LcdSeg)index, LCD_COM4, kShowClose);         // A
-    LCD_ShowSegment((LcdSeg)(index+1), LCD_COM4, kShowClose);     // B
-    LCD_ShowSegment((LcdSeg)(index+1), LCD_COM2, kShowClose);     // C
-    LCD_ShowSegment((LcdSeg)index, LCD_COM1, kShowClose);         // D
-    LCD_ShowSegment((LcdSeg)index, LCD_COM2, kShowClose);         // E
-    LCD_ShowSegment((LcdSeg)index, LCD_COM3, kShowClose);         // F
-    LCD_ShowSegment((LcdSeg)(index+1), LCD_COM3, kShowClose);     // G
+    LCD_ShowSegment((TeLcdSeg)index, kLcdCom4, kShowClose);         // A
+    LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom4, kShowClose);     // B
+    LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom2, kShowClose);     // C
+    LCD_ShowSegment((TeLcdSeg)index, kLcdCom1, kShowClose);         // D
+    LCD_ShowSegment((TeLcdSeg)index, kLcdCom2, kShowClose);         // E
+    LCD_ShowSegment((TeLcdSeg)index, kLcdCom3, kShowClose);         // F
+    LCD_ShowSegment((TeLcdSeg)(index+1), kLcdCom3, kShowClose);     // G
   }
 }
 
 /**
  * @description: LCD显示压力数值
  * @param {uint32_t} pressure  (0-99999)
- * @param {LcdSegmentShowControl} mode
+ * @param {TeLcdSegmentShowControl} mode
  * @return {*}
  */
-void LCD_ShowPressure(uint32_t pressure, LcdSegmentShowControl mode)
+void LCD_ShowPressure(uint32_t pressure, TeLcdSegmentShowControl mode)
 {
   uint8_t num_1, num_2, num_3;
 
   // 显示.
-  LCD_ShowIcon(ICON_POINT, mode);
+  LCD_ShowIcon(kIconPoint, mode);
   // 显示kPa
-  LCD_ShowIcon(ICON_KPA, mode);
+  LCD_ShowIcon(kIconKpa, mode);
 
-  LCD_ShowNum(KPA_NUM_1, 0, kShowClose);
+  LCD_ShowNum(kKpaNum1, 0, kShowClose);
   // 10k+ pa
   if(pressure >= 10000)
   {
@@ -405,7 +405,7 @@ void LCD_ShowPressure(uint32_t pressure, LcdSegmentShowControl mode)
     num_2 = (pressure / 1000) % 10;
     num_3 = (pressure / 100) % 10;
     // 显示十位
-    LCD_ShowNum(KPA_NUM_1, num_1, mode);
+    LCD_ShowNum(kKpaNum1, num_1, mode);
   }
   // 1k+ pa
   else if(pressure >= 1000)
@@ -426,22 +426,22 @@ void LCD_ShowPressure(uint32_t pressure, LcdSegmentShowControl mode)
     num_3 = 0;
   }
   // 显示个位
-  LCD_ShowNum(KPA_NUM_2, num_2, mode);
+  LCD_ShowNum(kKpaNum2, num_2, mode);
   // 显示小数点后一位
-  LCD_ShowNum(KPA_NUM_3, num_3, mode);
+  LCD_ShowNum(kKpaNum3, num_3, mode);
 }
 
 /**
  * @description: LCD显示定时时间
  * @param {uint8_t} time  (0-99)
- * @param {LcdSegmentShowControl} mode
+ * @param {TeLcdSegmentShowControl} mode
  * @return {*}
  */
-void LCD_ShowTime(uint8_t time, LcdSegmentShowControl mode)
+void LCD_ShowTime(uint8_t time, TeLcdSegmentShowControl mode)
 {
   uint8_t num_1, num_2;
   // 显示min
-  LCD_ShowIcon(ICON_MIN, mode);
+  LCD_ShowIcon(kIconMin, mode);
   if(time >= 10)
   {
     // 取十位
@@ -449,17 +449,17 @@ void LCD_ShowTime(uint8_t time, LcdSegmentShowControl mode)
     // 取个位
     num_2 = time % 10;
     // 显示十位
-    LCD_ShowNum(MIN_NUM_1, num_1, mode);
+    LCD_ShowNum(kMinNum1, num_1, mode);
   }
   else
   {
     // 关闭十位
-    LCD_ShowNum(MIN_NUM_1, 0, kShowClose);
+    LCD_ShowNum(kMinNum1, 0, kShowClose);
     // 取个位
     num_2 = time % 10;
   }
   // 显示个位
-  LCD_ShowNum(MIN_NUM_2, num_2, mode);
+  LCD_ShowNum(kMinNum2, num_2, mode);
 }
 
 
