@@ -2,14 +2,14 @@
  * @Author       : yzy
  * @Date         : 2022-05-16 12:42:47
  * @LastEditors  : stark1898y 1658608470@qq.com
- * @LastEditTime : 2024-07-17 16:29:40
+ * @LastEditTime : 2024-07-17 16:48:39
  * @Description  : CS1621
  * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\bsp\src\bsp_lcd_1621.c
  */
 #include "bsp_lcd_1621.h"
 
 
-static uint8_t lcd_buffer[LCD_BUFFER_LEN] = {0};
+static uint8_t _lcd_buffer[LCD_BUFFER_LEN] = {0};
 
 /**
  * @description: 向1621写一个byte的n位(从左到右)
@@ -112,7 +112,7 @@ void LCD_Refresh(void)
   uint8_t i = 0;
   for(i=0; i<LCD_BUFFER_LEN; i++)
   {
-    LCD_WriteSeg(i, lcd_buffer[i]);
+    LCD_WriteSeg(i, _lcd_buffer[i]);
   }
 }
 
@@ -123,7 +123,7 @@ void LCD_Refresh(void)
  */
 void LCD_Clear(void)
 {
-  rt_memset(&lcd_buffer, 0, sizeof(lcd_buffer));
+  rt_memset(&_lcd_buffer, 0, sizeof(_lcd_buffer));
   LCD_Refresh();
 }
 
@@ -142,19 +142,19 @@ void LCD_ShowSegment(TeLcdSeg seg, TeLcdCom com, TeLcdSegmentShowControl mode)
   {
     if(com == kLcdCom1)
     {
-      lcd_buffer[seg] &= B8(11110111);    //  1111 0111
+      _lcd_buffer[seg] &= B8(11110111);    //  1111 0111
     }
     else if(com == kLcdCom2)
     {
-      lcd_buffer[seg] &= B8(11111011);    //  1111 1011
+      _lcd_buffer[seg] &= B8(11111011);    //  1111 1011
     }
     else if(com == kLcdCom3)
     {
-      lcd_buffer[seg] &= B8(11111101);    //  1111 1101
+      _lcd_buffer[seg] &= B8(11111101);    //  1111 1101
     }
     else if(com == kLcdCom4)
     {
-      lcd_buffer[seg] &= B8(11111110);    //  1111 1110
+      _lcd_buffer[seg] &= B8(11111110);    //  1111 1110
     }
   }
   // 开启
@@ -162,19 +162,19 @@ void LCD_ShowSegment(TeLcdSeg seg, TeLcdCom com, TeLcdSegmentShowControl mode)
   {
     if(com == kLcdCom1)
     {
-      lcd_buffer[seg] |= B8(00001000);    //  0000 1000
+      _lcd_buffer[seg] |= B8(00001000);    //  0000 1000
     }
     else if(com == kLcdCom2)
     {
-      lcd_buffer[seg] |= B8(00000100);    //  0000 0100
+      _lcd_buffer[seg] |= B8(00000100);    //  0000 0100
     }
     else if(com == kLcdCom3)
     {
-      lcd_buffer[seg] |= B8(00000010);    //  0000 0010
+      _lcd_buffer[seg] |= B8(00000010);    //  0000 0010
     }
     else if(com == kLcdCom4)
     {
-      lcd_buffer[seg] |= B8(00000001);    //  0000 0001
+      _lcd_buffer[seg] |= B8(00000001);    //  0000 0001
     }
   }
 }

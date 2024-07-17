@@ -22,7 +22,7 @@
 #define LCD_RD_PIN          GET_PIN(A, 7)		  // 读时钟
 #define LCD_WR_PIN          GET_PIN(C, 4)		  // 写时钟
 
-#define LCD_BUFFER_LEN  (14U)          // 14个SEG
+#define LCD_BUFFER_LEN  ((uint8_t)14U)          // 14个SEG
 
 #define SYS_DIS         0x00        // 同时关闭系统振荡器和LCD偏置发生器
 #define SYS_EN          0x01        // 开启系统振荡器
