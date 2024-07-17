@@ -27,6 +27,8 @@
         "rtdef.h": "c",
         "atomic": "c",
         "cstddef": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "finsh.h": "c",
+        "rthw.h": "c"
     }
 }

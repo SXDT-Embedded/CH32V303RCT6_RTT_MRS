@@ -8,70 +8,92 @@
  * 2017-07-24     Tanek        the first version
  * 2018-11-12     Ernest Chen  modify copyright
  */
- 
 #include "board.h"
+
 #include <stdint.h>
+// #include "drv_uart.h"
 #include "drv_usart.h"
 
 #include <rthw.h>
 #include <rtthread.h>
 
-
+// Holds the system core clock, which is the system clock
+// frequency supplied to the SysTick timer and the processor
 // core clock.
 extern uint32_t SystemCoreClock;
 
 static uint32_t _SysTick_Config(rt_uint32_t ticks)
 {
-    NVIC_SetPriority(SysTicK_IRQn,0xf0);
-    NVIC_SetPriority(Software_IRQn,0xf0);
+    // æŠ¢å ä½:1 ä¼˜å…ˆçº§:111B = 7
+    NVIC_SetPriority(SysTicK_IRQn, 0xf0);
+    NVIC_SetPriority(Software_IRQn, 0xf0);
     NVIC_EnableIRQ(SysTicK_IRQn);
     NVIC_EnableIRQ(Software_IRQn);
-    SysTick->CTLR=0;
-    SysTick->SR=0;
-    SysTick->CNT=0;
-    SysTick->CMP=ticks-1;
-    SysTick->CTLR=0xF;
+
+    SysTick->CTLR = 0;
+    SysTick->SR   = 0;
+    SysTick->CNT  = 0;
+    SysTick->CMP  = ticks - 1;
+    //    SysTick->CTLR = 0xF;        // å‘ä¸Šè®¡æ•°
+    // æ”¹æˆå‘ä¸‹è®¡æ•°ï¼Œæžå¾—å’ŒCM3ç±»ä¼¼
+    SysTick->CTLR = 0x001F; // å‘ä¸‹è®¡æ•°   0----    1 1111
     return 0;
 }
 
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
+#if (USING_MAX_HEAP_SIZE == 0)
 #define RT_HEAP_SIZE (1024)
-static uint32_t rt_heap[RT_HEAP_SIZE];     // heap default size: 4K(1024 * 4)
+static uint32_t rt_heap[RT_HEAP_SIZE]; // heap default size: 4K(1024 * 4)
 RT_WEAK void *rt_heap_begin_get(void)
 {
     return rt_heap;
 }
-
 RT_WEAK void *rt_heap_end_get(void)
 {
     return rt_heap + RT_HEAP_SIZE;
 }
+#else
+RT_WEAK void *rt_heap_begin_get(void)
+{
+    return HEAP_BEGIN;
+}
+RT_WEAK void *rt_heap_end_get(void)
+{
+    return HEAP_END;
+}
+#endif /* !USING_MAX_HEAP_SIZE*/
 #endif
 
 /**
  * This function will initial your board.
  */
-void rt_hw_board_init()
+void rt_hw_board_init(void)
 {
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+
     /* System Tick Configuration */
     _SysTick_Config(SystemCoreClock / RT_TICK_PER_SECOND);
+
+#if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
+    rt_system_heap_init(rt_heap_begin_get(), rt_heap_end_get());
+#endif
+    /* USART driver initialization is open by default */
+#ifdef RT_USING_SERIAL
+    rt_hw_usart_init();
+#endif
+#ifdef RT_USING_CONSOLE
+    rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
+#endif
+#ifdef RT_USING_PIN
+    /* pin must initialized before i2c */
+    rt_hw_pin_init();
+#endif
+
     /* Call components board initial (use INIT_BOARD_EXPORT()) */
 #ifdef RT_USING_COMPONENTS_INIT
     rt_components_board_init();
 #endif
-#if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
-    rt_system_heap_init(rt_heap_begin_get(), rt_heap_end_get());
-#endif
-
-#ifdef RT_USING_SERIAL
-    rt_hw_usart_init();
-#endif
-
-#ifdef RT_USING_CONSOLE
-    rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
-#endif
 }
-
 
 void SysTick_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void SysTick_Handler(void)
@@ -79,43 +101,52 @@ void SysTick_Handler(void)
     GET_INT_SP();
     /* enter interrupt */
     rt_interrupt_enter();
-    SysTick->SR=0;
+    SysTick->SR = 0;
     rt_tick_increase();
     /* leave interrupt */
     rt_interrupt_leave();
     FREE_INT_SP();
-
 }
 
+// #define DBG_TAG "buzzer"
+// #define DBG_LVL DBG_ERROR
+// #include <rtdbg.h>
 
+// å‚è€ƒï¼š[001] [RT-Thread å­¦ä¹ ç¬”è®°] é«˜ç²¾åº¦å»¶æ—¶å‡½æ•° rt_hw_us_delay çš„é™·é˜±ä¸Žä¼˜åŒ–
+// https://blog.csdn.net/kouxi1/article/details/122581857
+
+// å…¶ä¸­å…¥å£å‚æ•° us æŒ‡ç¤ºå‡ºéœ€è¦å»¶æ—¶çš„å¾®ç§’æ•°ç›®ï¼Œè¿™ä¸ªå‡½æ•°åªèƒ½æ”¯æŒä½ŽäºŽ 1 OS Tick çš„å»¶æ—¶ã€‚
+
+// å¯ä»¥æ”¯æŒâ‰¥ 1 os tick çš„å»¶æ—¶æ—¶é—´ï¼ä½†æ˜¯ä¸å»ºè®®è¿™æ ·ä½¿ç”¨
+// ï¼Œå¦‚æžœéœ€è¦å»¶æ—¶æ—¶é—´â‰¥ 1 os tickï¼Œè¯·ä½¿ç”¨ rt_thread_delay() æˆ– rt_thread_mdelay å‡½æ•°
 void rt_hw_us_delay(rt_uint32_t us)
 {
     rt_uint32_t ticks;
     rt_uint32_t told, tnow, tcnt = 0;
     rt_uint32_t reload = SysTick->CMP;
 
-    /* »ñµÃÑÓÊ±¾­¹ýµÄ tick Êý */
+    /* èŽ·å¾—å»¶æ—¶ç»è¿‡çš„ tick æ•° */
     ticks = us * reload / (1000000 / RT_TICK_PER_SECOND);
-    /* »ñµÃµ±Ç°Ê±¼ä */
+    /* èŽ·å¾—å½“å‰æ—¶é—´ */
     told = SysTick->CNT;
     while (1)
     {
-        /* Ñ­»·»ñµÃµ±Ç°Ê±¼ä£¬Ö±µ½´ïµ½Ö¸¶¨µÄÊ±¼äºóÍË³öÑ­»· */
+        /* å¾ªçŽ¯èŽ·å¾—å½“å‰æ—¶é—´ï¼Œç›´åˆ°è¾¾åˆ°æŒ‡å®šçš„æ—¶é—´åŽé€€å‡ºå¾ªçŽ¯ */
         tnow = SysTick->CNT;
         if (tnow != told)
         {
             if (tnow < told)
             {
-                // È¡¾öÓÚ SysTick->CNT µÝÔö»òµÝ¼õ
-                // Í¨¹ýÒ»¸ö tcnt ±äÁ¿½«µ±Ç°¼ÆÊýÖµ tnow ÓëÉÏÒ»Ê±¿ÌµÄ¼ÆÊýÖµ told µÄ²îÖµ½øÐÐÀÛ¼Ó£¨×¢Òâ SysTick->VAL ÎªµÝ¼õ»¹ÊÇµÝÔö¼ÆÊýÆ÷£©
-                // £¬µ±ÀÛ¼ÓÖµ tcnt¡ÝÑÓÊ±½ÚÅÄ ticks Ê±Ìø³öÑ­»·£¬¶ø tcnt ×î´óÖµÎª 0xffff ffff£¬²»¿ÉÄÜ³öÏÖËÀÑ­»·µÄÇé¿ö
-//                tcnt += told - tnow;            // SysTick µÝÔöµÄ»°
-                tcnt += reload - told + tnow; // SysTick µÝ¼õµÄ»°
+                // å–å†³äºŽ SysTick->CNT é€’å¢žæˆ–é€’å‡
+                // é€šè¿‡ä¸€ä¸ª tcnt å˜é‡å°†å½“å‰è®¡æ•°å€¼ tnow ä¸Žä¸Šä¸€æ—¶åˆ»çš„è®¡æ•°å€¼ told çš„å·®å€¼è¿›è¡Œç´¯åŠ ï¼ˆæ³¨æ„ SysTick->VAL ä¸ºé€’å‡è¿˜æ˜¯é€’å¢žè®¡æ•°å™¨ï¼‰
+                // ï¼Œå½“ç´¯åŠ å€¼ tcntâ‰¥å»¶æ—¶èŠ‚æ‹ ticks æ—¶è·³å‡ºå¾ªçŽ¯ï¼Œè€Œ tcnt æœ€å¤§å€¼ä¸º 0xffff ffffï¼Œä¸å¯èƒ½å‡ºçŽ°æ­»å¾ªçŽ¯çš„æƒ…å†µ
+                tcnt += told - tnow; // SysTick é€’å¢žçš„è¯
+                //tcnt += reload - told + tnow; // SysTick é€’å‡çš„è¯
             }
             else
             {
-//                tcnt += reload - tnow + told;   // SysTick µÝÔöµÄ»°
-                tcnt += tnow - told;          // SysTick µÝ¼õµÄ»°
+                tcnt += reload - tnow + told; // SysTick é€’å¢žçš„è¯
+                //tcnt += tnow - told;          // SysTick é€’å‡çš„è¯
             }
             told = tnow;
             if (tcnt >= ticks)
@@ -125,5 +156,3 @@ void rt_hw_us_delay(rt_uint32_t us)
         }
     }
 }
-
-
