@@ -3,10 +3,10 @@
  * @Date: 2024-06-27 10:52:38
  * @LastEditors: mbw && 1600520629@qq.com
  * @LastEditTime: 2024-06-27 11:01:56
- * @FilePath: \MY_RTT_CH32V303_DEMO\User\ch32v30x_it.c
- * @Description: 
- * 
- * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ * @FilePath: \SCV_ControlBox_CH32V303RCT6_BC260\User\ch32v30x_it.c
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 /********************************** (C) COPYRIGHT *******************************
 * File Name          : ch32v10x_it.c
@@ -16,7 +16,7 @@
 * Description        : Main Interrupt Service Routines.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-* Attention: This software (modified or not) and binary are used for 
+* Attention: This software (modified or not) and binary are used for
 * microcontroller manufactured by Nanjing Qinheng Microelectronics.
 *******************************************************************************/
 #include "ch32v30x_it.h"

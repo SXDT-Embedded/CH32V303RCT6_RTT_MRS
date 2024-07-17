@@ -1,12 +1,12 @@
-/*** 
+/***
  * @Author: mbw
  * @Date: 2024-06-27 10:55:21
  * @LastEditors: mbw && 1600520629@qq.com
  * @LastEditTime: 2024-06-27 10:55:31
- * @FilePath: \MY_RTT_CH32V303_DEMO\drivers\drv_usart.h
- * @Description: 
+ * @FilePath: \SCV_ControlBox_CH32V303RCT6_BC260\drivers\drv_usart.h
+ * @Description:
  * @
- * @Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ * @Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 /*
  * Copyright (c) 2006-2018, RT-Thread Development Team
@@ -39,7 +39,7 @@ struct ch32_uart_config
 struct ch32_uart
 {
     struct ch32_uart_config *config;
-    USART_InitTypeDef Init;		
+    USART_InitTypeDef Init;
     struct rt_serial_device serial;
 //    struct _DMA_HandleTypeDef *dma_rx, *dma_tx;
 //    rt_size_t last_index;

@@ -1,6 +1,6 @@
 ################################################################################
 # MRS Version: 1.9.1
-# è‡ªåŠ¨ç”Ÿæˆçš„æ–‡ä»¶ã€‚ä¸è¦ç¼–è¾‘ï¼
+# ×Ô¶¯Éú³ÉµÄÎÄ¼þ¡£²»Òª±à¼­£¡
 ################################################################################
 
 -include ../makefile.init
@@ -54,34 +54,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 SECONDARY_FLASH += \
-MY_RTT_CH32V303_DEMO.hex \
+SCV_ControlBox_CH32V303RCT6_BC260.hex \
 
 SECONDARY_LIST += \
-MY_RTT_CH32V303_DEMO.lst \
+SCV_ControlBox_CH32V303RCT6_BC260.lst \
 
 SECONDARY_SIZE += \
-MY_RTT_CH32V303_DEMO.siz \
+SCV_ControlBox_CH32V303RCT6_BC260.siz \
 
 
-# æ‰€æœ‰ç›®æ ‡
-all: MY_RTT_CH32V303_DEMO.elf secondary-outputs
+# ËùÓÐÄ¿±ê
+all: SCV_ControlBox_CH32V303RCT6_BC260.elf secondary-outputs
 
-# å·¥å…·è°ƒç”¨
-MY_RTT_CH32V303_DEMO.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "C:\Users\16005\Desktop\JT-DT-BX4C01_RTT-Nano-mbw_rtt\JT-DT-BX4C01_RTT-Nano-mbw_rtt\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"MY_RTT_CH32V303_DEMO.map" --specs=nano.specs -u _scanf_float --specs=nosys.specs  -o "MY_RTT_CH32V303_DEMO.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
+# ¹¤¾ßµ÷ÓÃ
+SCV_ControlBox_CH32V303RCT6_BC260.elf: $(OBJS) $(USER_OBJS)
+	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "F:\BaiduSyncdisk\SXDT\IoT_SCV\V2.0\SCV_ControlBox_CH32V303RCT6_BC260\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"SCV_ControlBox_CH32V303RCT6_BC260.map" --specs=nano.specs -u _scanf_float --specs=nosys.specs  -o "SCV_ControlBox_CH32V303RCT6_BC260.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
 	@	@
-MY_RTT_CH32V303_DEMO.hex: MY_RTT_CH32V303_DEMO.elf
-	@	riscv-none-embed-objcopy -O ihex "MY_RTT_CH32V303_DEMO.elf"  "MY_RTT_CH32V303_DEMO.hex"
+SCV_ControlBox_CH32V303RCT6_BC260.hex: SCV_ControlBox_CH32V303RCT6_BC260.elf
+	@	riscv-none-embed-objcopy -O ihex "SCV_ControlBox_CH32V303RCT6_BC260.elf"  "SCV_ControlBox_CH32V303RCT6_BC260.hex"
 	@	@
-MY_RTT_CH32V303_DEMO.lst: MY_RTT_CH32V303_DEMO.elf
-	@	riscv-none-embed-objdump --all-headers --demangle --disassemble -M xw "MY_RTT_CH32V303_DEMO.elf" > "MY_RTT_CH32V303_DEMO.lst"
+SCV_ControlBox_CH32V303RCT6_BC260.lst: SCV_ControlBox_CH32V303RCT6_BC260.elf
+	@	riscv-none-embed-objdump --all-headers --demangle --disassemble -M xw "SCV_ControlBox_CH32V303RCT6_BC260.elf" > "SCV_ControlBox_CH32V303RCT6_BC260.lst"
 	@	@
-MY_RTT_CH32V303_DEMO.siz: MY_RTT_CH32V303_DEMO.elf
-	@	riscv-none-embed-size --format=berkeley "MY_RTT_CH32V303_DEMO.elf"
+SCV_ControlBox_CH32V303RCT6_BC260.siz: SCV_ControlBox_CH32V303RCT6_BC260.elf
+	@	riscv-none-embed-size --format=berkeley "SCV_ControlBox_CH32V303RCT6_BC260.elf"
 	@	@
-# å…¶ä»–ç›®æ ‡
+# ÆäËûÄ¿±ê
 clean:
-	-$(RM) $(ASM_UPPER_DEPS)$(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) MY_RTT_CH32V303_DEMO.elf
+	-$(RM) $(ASM_UPPER_DEPS)$(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) SCV_ControlBox_CH32V303RCT6_BC260.elf
 	-@
 secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_LIST) $(SECONDARY_SIZE)
 
