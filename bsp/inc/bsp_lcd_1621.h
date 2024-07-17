@@ -2,7 +2,7 @@
  * @Author       : stark1898y 1658608470@qq.com
  * @Date         : 2024-07-17 09:54:43
  * @LastEditors  : stark1898y 1658608470@qq.com
- * @LastEditTime : 2024-07-17 09:58:02
+ * @LastEditTime : 2024-07-17 16:30:40
  * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\bsp\inc\bsp_lcd_1621.h
  * @Description  :
  *
@@ -11,7 +11,7 @@
 #ifndef __BSP_LCD_1621_H__
 #define __BSP_LCD_1621_H__
 
-// #include "user_sys.h"
+#include "bsp_sys.h"
 #include "drv_gpio.h"
 #include <rtthread.h>
 
@@ -134,8 +134,8 @@ typedef enum
 } LcdNumIndex;
 
 typedef enum {
-  SHOW_CLOSE = 0,
-  SHOW_OPEN
+  kShowClose = 0U,
+  kShowOpen
 } LcdSegmentShowControl;
 
 /**
@@ -163,7 +163,7 @@ void LCD_Clear(void);
  * @description:
  * @param {LcdSeg} seg     0-13(LCD_BUFFER_LEN-1)
  * @param {LcdCom} com      1-4
- * @param {LcdSegmentShowControl} mode    SHOW_CLOSE：熄灭；SHOW_OPEN:点亮
+ * @param {LcdSegmentShowControl} mode    kShowClose：熄灭；kShowOpen:点亮
  * @return {*}
  */
 void LCD_ShowSegment(LcdSeg seg, LcdCom com, LcdSegmentShowControl mode);
@@ -171,7 +171,7 @@ void LCD_ShowSegment(LcdSeg seg, LcdCom com, LcdSegmentShowControl mode);
 /**
  * @description: 显示图标
  * @param {LcdIconIndex} index
- * @param {LcdSegmentShowControl} mode  SHOW_CLOSE：熄灭；SHOW_OPEN:点亮
+ * @param {LcdSegmentShowControl} mode  kShowClose：熄灭；kShowOpen:点亮
  * @return {*}
  */
 void LCD_ShowIcon(LcdIconIndex index, LcdSegmentShowControl mode);

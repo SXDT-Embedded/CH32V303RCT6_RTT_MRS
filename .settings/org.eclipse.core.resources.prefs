@@ -27,6 +27,7 @@ encoding//bsp/src/bsp_aht20.c=GBK
 encoding//bsp/src/bsp_button.c=GBK
 encoding//bsp/src/bsp_flash.c=GBK
 encoding//bsp/src/bsp_hr.c=GBK
+encoding//bsp/src/bsp_lcd_1621.c=UTF-8
 encoding//bsp/src/bsp_led.c=GBK
 encoding//bsp/src/bsp_rtc.c=UTF-8
 encoding//bsp/src/bsp_sensor.c=GBK

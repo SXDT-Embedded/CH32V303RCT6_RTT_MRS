@@ -23,6 +23,7 @@
         "bsp_led.h": "c",
         "flexible_button.h": "c",
         "bsp_lcd_1621.h": "c",
-        "drv_gpio.h": "c"
+        "drv_gpio.h": "c",
+        "rtdef.h": "c"
     }
 }
