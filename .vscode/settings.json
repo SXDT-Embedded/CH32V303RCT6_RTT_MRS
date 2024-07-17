@@ -29,6 +29,9 @@
         "cstddef": "c",
         "type_traits": "c",
         "finsh.h": "c",
-        "rthw.h": "c"
+        "rthw.h": "c",
+        "bsp_sys.h": "c",
+        "board.h": "c",
+        "agile_led.h": "c"
     }
 }

@@ -11,9 +11,7 @@ C_SRCS += \
 ../bsp/src/bsp_lcd_1621.c \
 ../bsp/src/bsp_led.c \
 ../bsp/src/bsp_rtc.c \
-../bsp/src/bsp_sensor.c \
 ../bsp/src/bsp_vin_detection.c \
-../bsp/src/bsp_voice.c \
 ../bsp/src/bsp_wdg.c 
 
 OBJS += \
@@ -23,9 +21,7 @@ OBJS += \
 ./bsp/src/bsp_lcd_1621.o \
 ./bsp/src/bsp_led.o \
 ./bsp/src/bsp_rtc.o \
-./bsp/src/bsp_sensor.o \
 ./bsp/src/bsp_vin_detection.o \
-./bsp/src/bsp_voice.o \
 ./bsp/src/bsp_wdg.o 
 
 C_DEPS += \
@@ -35,9 +31,7 @@ C_DEPS += \
 ./bsp/src/bsp_lcd_1621.d \
 ./bsp/src/bsp_led.d \
 ./bsp/src/bsp_rtc.d \
-./bsp/src/bsp_sensor.d \
 ./bsp/src/bsp_vin_detection.d \
-./bsp/src/bsp_voice.d \
 ./bsp/src/bsp_wdg.d 
 
 

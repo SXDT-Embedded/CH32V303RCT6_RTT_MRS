@@ -17,7 +17,6 @@ static rt_uint8_t button_thread_stack[BUTTON_THREAD_STACK_SIZE]; /**< button_thr
 static struct rt_thread button_0;
 
 
-
 #ifndef BUTTON_0
 #define BUTTON_0 GET_PIN(B, 12)
 #endif
@@ -88,17 +87,17 @@ static void common_btn_evt_cb(void *arg)
     //也可以使用组合键
     if (flex_button_event_read(&user_button[USER_BUTTON_0]) == FLEX_BTN_PRESS_CLICK)//单击
     {
-        Send_Laser_Alarm_Event(kSelfInspectionEvents);
+        // Send_Laser_Alarm_Event(kSelfInspectionEvents);
     }
     if (flex_button_event_read(&user_button[USER_BUTTON_0]) == FLEX_BTN_PRESS_DOUBLE_CLICK)//双击
     {
 
-        Send_Laser_Alarm_Event(kFlexBtnPressDoubleClick);
+        // Send_Laser_Alarm_Event(kFlexBtnPressDoubleClick);
     }
     if (flex_button_event_read(&user_button[USER_BUTTON_0]) == FLEX_BTN_PRESS_SHORT_START)//短按开始
     {
 
-        Send_Laser_Alarm_Event(kFlexBtnPressShoartStart);
+        // Send_Laser_Alarm_Event(kFlexBtnPressShoartStart);
     }
 }
 
@@ -115,7 +114,7 @@ static void BSP_Button_thread(void *parameter)
 static void BSP_Button_Init(void)
 {
     int i;
-    
+
     rt_memset(&user_button[0], 0x0, sizeof(user_button));
 
     rt_pin_mode(BUTTON_0, PIN_MODE_INPUT_PULLUP); /* set KEY pin mode to input */
@@ -136,13 +135,8 @@ static void BSP_Button_Init(void)
 
 int flex_button_main(void)
 {
-//    rt_thread_t button = RT_NULL;
     rt_err_t ret = RT_ERROR;
     BSP_Button_Init();
-
-    /* Create background ticks thread */
-//    button = rt_thread_create("button_0", BSP_Button_thread, RT_NULL,
-//                            BUTTON_THREAD_STACKSIZE, BUTTON_THREAD_PRIORITY, BUTTON_THREAD_TICKS);
 
     ret = rt_thread_init(&button_0,
                        "button_0",

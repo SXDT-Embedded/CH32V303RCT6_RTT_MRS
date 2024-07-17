@@ -12,7 +12,6 @@
 #include <rtdevice.h>
 #include <drv_usart.h>
 #include "bsp_hr.h"
-#include "bsp_sensor.h"
 #include "lwutil.h"
 
 
