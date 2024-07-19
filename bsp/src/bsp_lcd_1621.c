@@ -4,7 +4,7 @@
  * @LastEditors  : stark1898y 1658608470@qq.com
  * @LastEditTime : 2024-07-17 16:57:26
  * @Description  : CS1621
- * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\bsp\src\bsp_lcd_1621.c
+ * @FilePath     : \CH32V303RCT6_RTT_MRS\bsp\src\bsp_lcd_1621.c
  */
 #include "bsp_lcd_1621.h"
 

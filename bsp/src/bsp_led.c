@@ -3,7 +3,7 @@
  * @Date         : 2023-04-04 14:45:50
  * @LastEditors  : stark1898y 1658608470@qq.com
  * @LastEditTime : 2024-07-17 17:46:33
- * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\bsp\src\bsp_led.c
+ * @FilePath     : \CH32V303RCT6_RTT_MRS\bsp\src\bsp_led.c
  * @Description  :
  *
  * Copyright (c) 2023 by yzy, All Rights Reserved.

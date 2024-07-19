@@ -3,7 +3,7 @@
  * @Date         : 2024-07-19 12:09:42
  * @LastEditors  : stark1898y 1658608470@qq.com
  * @LastEditTime : 2024-07-19 12:09:57
- * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\rtthread\software_irq.c
+ * @FilePath     : \CH32V303RCT6_RTT_MRS\rtthread\software_irq.c
  * @Description  :
  *
  * Copyright (c) 2024 by yzy, All Rights Reserved.

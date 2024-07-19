@@ -3,7 +3,7 @@
  * @Date         : 2024-07-17 10:41:45
  * @LastEditors  : stark1898y 1658608470@qq.com
  * @LastEditTime : 2024-07-17 16:26:52
- * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\bsp\inc\bsp_sys.h
+ * @FilePath     : \CH32V303RCT6_RTT_MRS\bsp\inc\bsp_sys.h
  * @Description  :
  *
  * Copyright (c) 2024 by yzy, All Rights Reserved.

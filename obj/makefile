@@ -47,39 +47,39 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 SECONDARY_FLASH += \
-SCV_ControlBox_CH32V303RCT6_BC260.hexAndbin \
+CH32V303RCT6_RTT_MRS.hexAndbin \
 
 SECONDARY_LIST += \
-SCV_ControlBox_CH32V303RCT6_BC260.lst \
+CH32V303RCT6_RTT_MRS.lst \
 
 SECONDARY_SIZE += \
-SCV_ControlBox_CH32V303RCT6_BC260.siz \
+CH32V303RCT6_RTT_MRS.siz \
 
 
 # 所有目标
-all: SCV_ControlBox_CH32V303RCT6_BC260.elf secondary-outputs
+all: CH32V303RCT6_RTT_MRS.elf secondary-outputs
 
 # 工具调用
-SCV_ControlBox_CH32V303RCT6_BC260.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-elf-gcc -march=rv32imafcxw -mabi=ilp32f -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g3 -T "F:\BaiduSyncdisk\SXDT\IoT_SCV\V2.0\SCV_ControlBox_CH32V303RCT6_BC260\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"SCV_ControlBox_CH32V303RCT6_BC260.map" --specs=nano.specs --specs=nosys.specs -o "SCV_ControlBox_CH32V303RCT6_BC260.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+CH32V303RCT6_RTT_MRS.elf: $(OBJS) $(USER_OBJS)
+	@	@	riscv-none-elf-gcc -march=rv32imafcxw -mabi=ilp32f -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g3 -T "F:\BaiduSyncdisk\learn\MCU\WCH\CH32V303-5-7\CH32V303RCT6_RTT_MRS\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"CH32V303RCT6_RTT_MRS.map" --specs=nano.specs --specs=nosys.specs -o "CH32V303RCT6_RTT_MRS.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@	@
-SCV_ControlBox_CH32V303RCT6_BC260.hexAndbin: SCV_ControlBox_CH32V303RCT6_BC260.elf
-	@	riscv-none-elf-objcopy -O ihex "SCV_ControlBox_CH32V303RCT6_BC260.elf"  "SCV_ControlBox_CH32V303RCT6_BC260.hex" && riscv-none-elf-objcopy -O binary "SCV_ControlBox_CH32V303RCT6_BC260.elf"  "SCV_ControlBox_CH32V303RCT6_BC260.bin"
+CH32V303RCT6_RTT_MRS.hexAndbin: CH32V303RCT6_RTT_MRS.elf
+	@	riscv-none-elf-objcopy -O ihex "CH32V303RCT6_RTT_MRS.elf"  "CH32V303RCT6_RTT_MRS.hex" && riscv-none-elf-objcopy -O binary "CH32V303RCT6_RTT_MRS.elf"  "CH32V303RCT6_RTT_MRS.bin"
 	@	@
-SCV_ControlBox_CH32V303RCT6_BC260.lst: SCV_ControlBox_CH32V303RCT6_BC260.elf
-	@	riscv-none-elf-objdump --source --all-headers --demangle --disassemble --line-numbers --wide -M xw "SCV_ControlBox_CH32V303RCT6_BC260.elf" > "SCV_ControlBox_CH32V303RCT6_BC260.lst"
+CH32V303RCT6_RTT_MRS.lst: CH32V303RCT6_RTT_MRS.elf
+	@	riscv-none-elf-objdump --source --all-headers --demangle --disassemble --line-numbers --wide -M xw "CH32V303RCT6_RTT_MRS.elf" > "CH32V303RCT6_RTT_MRS.lst"
 	@	@
-SCV_ControlBox_CH32V303RCT6_BC260.siz: SCV_ControlBox_CH32V303RCT6_BC260.elf
-	@	riscv-none-elf-size --format=berkeley "SCV_ControlBox_CH32V303RCT6_BC260.elf"
+CH32V303RCT6_RTT_MRS.siz: CH32V303RCT6_RTT_MRS.elf
+	@	riscv-none-elf-size --format=berkeley "CH32V303RCT6_RTT_MRS.elf"
 	@	@
 	$(MAKE) --no-print-directory post-build
 
 # 其他目标
 clean:
-	-$(RM) $(ASM_UPPER_DEPS)$(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) SCV_ControlBox_CH32V303RCT6_BC260.elf
+	-$(RM) $(ASM_UPPER_DEPS)$(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) CH32V303RCT6_RTT_MRS.elf
 	-@
 post-build:
-	-riscv-none-elf-objcopy -O ihex "SCV_ControlBox_CH32V303RCT6_BC260.elf" "SCV_ControlBox_CH32V303RCT6_BC260.hex" && riscv-none-elf-objcopy -O binary "SCV_ControlBox_CH32V303RCT6_BC260.elf" "SCV_ControlBox_CH32V303RCT6_BC260.bin"
+	-riscv-none-elf-objcopy -O ihex "CH32V303RCT6_RTT_MRS.elf" "CH32V303RCT6_RTT_MRS.hex" && riscv-none-elf-objcopy -O binary "CH32V303RCT6_RTT_MRS.elf" "CH32V303RCT6_RTT_MRS.bin"
 	-@
 secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_LIST) $(SECONDARY_SIZE)
 

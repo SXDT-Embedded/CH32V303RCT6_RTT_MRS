@@ -3,7 +3,7 @@
  * @Date         : 2024-07-19 13:49:43
  * @LastEditors  : stark1898y 1658608470@qq.com
  * @LastEditTime : 2024-07-19 14:54:43
- * @FilePath     : \SCV_ControlBox_CH32V303RCT6_BC260\rt-thread\rtconfig.h
+ * @FilePath     : \CH32V303RCT6_RTT_MRS\rt-thread\rtconfig.h
  * @Description  :
  *
  * Copyright (c) 2024 by yzy, All Rights Reserved.
