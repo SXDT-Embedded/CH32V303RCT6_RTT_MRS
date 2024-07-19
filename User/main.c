@@ -14,7 +14,6 @@
 #include <rthw.h>
 #include "drivers/pin.h"
 #include "bsp_led.h"
-#include "user_sys.h"
 #include "bsp_flash.h"
 #include "rtdef.h"
 

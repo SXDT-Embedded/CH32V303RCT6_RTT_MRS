@@ -25,20 +25,23 @@ C_DEPS :=
 SUBDIRS := \
 Core \
 Debug \
-Peripheral/source \
+Peripheral/src \
 Startup \
 User \
 bsp/src \
-common/AT-Command-master/src \
-common/FlexibleButton-master \
+common/AT\ Command \
+common/FlexibleButton \
 common/LwRB \
+common/LwUtil \
 common/agile_led \
+common/rt_kprintf_threadsafe \
 drivers \
 rtthread \
 rtthread/components/drivers/misc \
 rtthread/components/drivers/serial \
 rtthread/components/finsh \
-rtthread/components/rt_vsnprintf_full-master \
+rtthread/components/net/at/src \
+rtthread/components/rt_vsnprintf_full \
 rtthread/components/utilities/ulog/backend \
 rtthread/components/utilities/ulog \
 rtthread/libcpu/risc-v/common \

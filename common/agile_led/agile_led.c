@@ -32,9 +32,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define LOG_TAG    "agile_led"
-#define  LOG_LVL    LOG_LVL_DBG
-#include <ulog.h>
 /** @defgroup RT_Thread_DBG_Configuration RT-Thread DBG Configuration
  * @{
  */
@@ -73,7 +70,7 @@
  * @{
  */
 #ifndef PKG_AGILE_LED_THREAD_STACK_SIZE
-#define PKG_AGILE_LED_THREAD_STACK_SIZE 1024 /**< Agile Led 线程堆栈大小 */
+#define PKG_AGILE_LED_THREAD_STACK_SIZE 512 /**< Agile Led 线程堆栈大小 */
 #endif
 
 #ifndef PKG_AGILE_LED_THREAD_PRIORITY
@@ -601,15 +598,10 @@ static int agile_led_auto_thread_init(void)
                    &_thread_stack[0],
                    sizeof(_thread_stack),
                    PKG_AGILE_LED_THREAD_PRIORITY,
-                   5);
-    if (&_thread != RT_NULL)
-    {
-        rt_thread_startup(&_thread);
-    }
-    else
-    {
-        rt_kprintf("rt_thread_startup agled failed...\n");
-    }
+                   100);
+
+    rt_thread_startup(&_thread);
+
     return RT_EOK;
 }
 INIT_PREV_EXPORT(agile_led_auto_thread_init);

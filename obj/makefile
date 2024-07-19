@@ -13,20 +13,23 @@ RM := rm -rf
 -include rtthread/libcpu/risc-v/common/subdir.mk
 -include rtthread/components/utilities/ulog/backend/subdir.mk
 -include rtthread/components/utilities/ulog/subdir.mk
--include rtthread/components/rt_vsnprintf_full-master/subdir.mk
+-include rtthread/components/rt_vsnprintf_full/subdir.mk
+-include rtthread/components/net/at/src/subdir.mk
 -include rtthread/components/finsh/subdir.mk
 -include rtthread/components/drivers/serial/subdir.mk
 -include rtthread/components/drivers/misc/subdir.mk
 -include rtthread/subdir.mk
 -include drivers/subdir.mk
+-include common/rt_kprintf_threadsafe/subdir.mk
 -include common/agile_led/subdir.mk
+-include common/LwUtil/subdir.mk
 -include common/LwRB/subdir.mk
--include common/FlexibleButton-master/subdir.mk
--include common/AT-Command-master/src/subdir.mk
+-include common/FlexibleButton/subdir.mk
+-include common/AT\ Command/subdir.mk
 -include bsp/src/subdir.mk
 -include User/subdir.mk
 -include Startup/subdir.mk
--include Peripheral/source/subdir.mk
+-include Peripheral/src/subdir.mk
 -include Debug/subdir.mk
 -include Core/subdir.mk
 -include subdir.mk
@@ -68,16 +71,16 @@ all: SCV_ControlBox_CH32V303RCT6_BC260.elf secondary-outputs
 
 # 工具调用
 SCV_ControlBox_CH32V303RCT6_BC260.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "F:\BaiduSyncdisk\SXDT\IoT_SCV\V2.0\SCV_ControlBox_CH32V303RCT6_BC260\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"SCV_ControlBox_CH32V303RCT6_BC260.map" --specs=nano.specs -u _scanf_float --specs=nosys.specs  -o "SCV_ControlBox_CH32V303RCT6_BC260.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
+	@	@	riscv-none-elf-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "F:\BaiduSyncdisk\SXDT\IoT_SCV\V2.0\SCV_ControlBox_CH32V303RCT6_BC260\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"SCV_ControlBox_CH32V303RCT6_BC260.map" --specs=nano.specs --specs=nosys.specs -o "SCV_ControlBox_CH32V303RCT6_BC260.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@	@
 SCV_ControlBox_CH32V303RCT6_BC260.hex: SCV_ControlBox_CH32V303RCT6_BC260.elf
-	@	riscv-none-embed-objcopy -O ihex "SCV_ControlBox_CH32V303RCT6_BC260.elf"  "SCV_ControlBox_CH32V303RCT6_BC260.hex"
+	@	riscv-none-elf-objcopy -O ihex "SCV_ControlBox_CH32V303RCT6_BC260.elf"  "SCV_ControlBox_CH32V303RCT6_BC260.hex"
 	@	@
 SCV_ControlBox_CH32V303RCT6_BC260.lst: SCV_ControlBox_CH32V303RCT6_BC260.elf
-	@	riscv-none-embed-objdump --all-headers --demangle --disassemble -M xw "SCV_ControlBox_CH32V303RCT6_BC260.elf" > "SCV_ControlBox_CH32V303RCT6_BC260.lst"
+	@	riscv-none-elf-objdump --all-headers --demangle --disassemble -M xw "SCV_ControlBox_CH32V303RCT6_BC260.elf" > "SCV_ControlBox_CH32V303RCT6_BC260.lst"
 	@	@
 SCV_ControlBox_CH32V303RCT6_BC260.siz: SCV_ControlBox_CH32V303RCT6_BC260.elf
-	@	riscv-none-embed-size --format=berkeley "SCV_ControlBox_CH32V303RCT6_BC260.elf"
+	@	riscv-none-elf-size --format=berkeley "SCV_ControlBox_CH32V303RCT6_BC260.elf"
 	@	@
 # 其他目标
 clean:

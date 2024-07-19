@@ -1,5 +1,4 @@
 #include "bsp_rtc.h"
-#include "user_sys.h"
 
 #define LOG_TAG     "bsp_rtc"          // 该模块对应的标签。不定义时，默认：NO_TAG
 #define LOG_LVL     LOG_LVL_DBG     // 该模块对应的日志输出级别。不定义时，默认：调试级别

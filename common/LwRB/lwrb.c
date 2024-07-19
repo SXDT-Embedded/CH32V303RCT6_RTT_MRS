@@ -32,7 +32,6 @@
  * Version:         v3.1.0
  */
 #include "lwrb.h"
-#include "lwutil.h"
 
 /* Memory set and copy functions */
 #define BUF_MEMSET      memset
@@ -67,7 +66,8 @@
  *                      Maximum number of bytes buffer can hold is `size - 1`
  * \return          `1` on success, `0` otherwise
  */
-uint8_t lwrb_init(lwrb_t* buff, void* buffdata, lwrb_sz_t size) {
+uint8_t
+lwrb_init(lwrb_t* buff, void* buffdata, lwrb_sz_t size) {
     if (buff == NULL || buffdata == NULL || size == 0) {
         return 0;
     }

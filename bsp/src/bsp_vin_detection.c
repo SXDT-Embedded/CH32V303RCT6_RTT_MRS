@@ -12,7 +12,6 @@
 #include "bsp_rtc.h"
 #include "bsp_flash.h"
 #include "rthw.h"
-#include "user_sys.h"
 #include "pin.h"
 #include "drv_gpio.h"
 

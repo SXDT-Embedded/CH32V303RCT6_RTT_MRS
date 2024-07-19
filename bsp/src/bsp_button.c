@@ -2,8 +2,6 @@
 #include "flexible_button.h"
 #include "drv_gpio.h"
 #include "bsp_led.h"
-#include "user_sys.h"
-
 
 #define LOG_TAG    "bsp_button"
 #define  LOG_LVL    LOG_LVL_DBG

@@ -53,14 +53,14 @@ RT_WEAK void *rt_heap_end_get(void)
     return rt_heap + RT_HEAP_SIZE;
 }
 #else
-RT_WEAK void *rt_heap_begin_get(void)
-{
-    return HEAP_BEGIN;
-}
-RT_WEAK void *rt_heap_end_get(void)
-{
-    return HEAP_END;
-}
+// RT_WEAK void *rt_heap_begin_get(void)
+// {
+//     return HEAP_BEGIN;
+// }
+// RT_WEAK void *rt_heap_end_get(void)
+// {
+//     return HEAP_END;
+// }
 #endif /* !USING_MAX_HEAP_SIZE*/
 #endif
 
@@ -75,7 +75,8 @@ void rt_hw_board_init(void)
     _SysTick_Config(SystemCoreClock / RT_TICK_PER_SECOND);
 
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
-    rt_system_heap_init(rt_heap_begin_get(), rt_heap_end_get());
+    // rt_system_heap_init(rt_heap_begin_get(), rt_heap_end_get());
+    rt_system_heap_init((void *) HEAP_BEGIN, (void *) HEAP_END);
 #endif
     /* USART driver initialization is open by default */
 #ifdef RT_USING_SERIAL
