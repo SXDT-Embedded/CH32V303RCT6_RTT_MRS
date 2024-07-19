@@ -23,27 +23,17 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Core \
-Debug \
-Peripheral/src \
-Startup \
-User \
-bsp/src \
-common/AT\ Command \
-common/FlexibleButton \
-common/LwRB \
-common/LwUtil \
-common/agile_led \
-common/rt_kprintf_threadsafe \
-drivers \
-rtthread \
-rtthread/components/drivers/misc \
-rtthread/components/drivers/serial \
-rtthread/components/finsh \
-rtthread/components/net/at/src \
-rtthread/components/rt_vsnprintf_full \
-rtthread/components/utilities/ulog/backend \
-rtthread/components/utilities/ulog \
-rtthread/libcpu/risc-v/common \
-rtthread/src \
+applications \
+board \
+libcpu/cpu \
+libraries/hal_drivers \
+libraries/hal_libraries/bmsis/source \
+libraries/hal_libraries/ch32v303_hal/source \
+rt-thread/components/drivers/ipc \
+rt-thread/components/drivers/misc \
+rt-thread/components/drivers/serial \
+rt-thread/components/finsh \
+rt-thread/components/utilities/ulog/backend \
+rt-thread/components/utilities/ulog \
+rt-thread/src \
 

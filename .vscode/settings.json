@@ -32,6 +32,8 @@
         "rthw.h": "c",
         "bsp_sys.h": "c",
         "board.h": "c",
-        "agile_led.h": "c"
+        "agile_led.h": "c",
+        "rtconfig.h": "c",
+        "pin.h": "c"
     }
 }
